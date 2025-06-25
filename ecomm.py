@@ -5,7 +5,7 @@ import streamlit as st
 
 def main(): #entry point
     st.title("DATA VIEWER ")
-    st.sidebar.title("Uploading Zone")
+    st.sidebar.title("File Upload ")
     uploaded_file  = st.sidebar.file_uploader("Upload your file here", type = [ 'csv','xlsx'])
 
     if uploaded_file is not None:
