@@ -4,7 +4,7 @@ import seaborn as sns
 import streamlit as st 
 
 def main(): #entry point
-    st.title("This is my streamlit app for ecommerce")
+    st.title("DATA VIEWER ")
     st.sidebar.title("Uploading Zone")
     uploaded_file  = st.sidebar.file_uploader("Upload your file here", type = [ 'csv','xlsx'])
 
@@ -15,10 +15,10 @@ def main(): #entry point
             else:     
                 data = pd.read_excel(uploaded_file)
             st.sidebar.success("File Uploaded successfully")
-            st.subheader("data overview")
+            st.subheader("Data Overview")
             st.dataframe(data.head())
             st.subheader("Basic information of data")
-            st.write("shape of the data", data.shape)
+            st.write("Shape of the data", data.shape)
             st.write("Columns in my data",data.columns)
             st.write("Missing value" , data.isnull().sum())
             st.subheader("I will show you the stats of the data")
