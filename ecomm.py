@@ -1,32 +1,39 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import streamlit as st 
+import streamlit as st
 
-def main(): #entry point
-    st.title("DATA VIEWER ")
-    st.sidebar.title("File Upload ")
-    uploaded_file  = st.sidebar.file_uploader("Upload your file here", type = [ 'csv','xlsx'])
+def main():
+    st.set_page_config(page_title="Data Viewer", layout="wide")
+    st.title("Data Viewer")
+    st.sidebar.header("File Upload")
+
+    uploaded_file = st.sidebar.file_uploader("Upload your data file", type=["csv", "xlsx"])
 
     if uploaded_file is not None:
-        try :
+        try:
             if uploaded_file.name.endswith('.csv'):
                 data = pd.read_csv(uploaded_file)
-            else:     
+            else:
                 data = pd.read_excel(uploaded_file)
-            st.sidebar.success("File Uploaded successfully")
-            st.subheader("Data Overview")
+
+            st.sidebar.success("File uploaded successfully.")
+
+            st.subheader("Data Preview")
             st.dataframe(data.head())
-            st.subheader("Basic information of data")
-            st.write("Shape of the data", data.shape)
-            st.write("Columns in my data",data.columns)
-            st.write("Missing value" , data.isnull().sum())
-            st.subheader("I will show you the stats of the data")
+
+            st.subheader("Dataset Summary")
+            st.write("Shape:", data.shape)
+            st.write("Columns:", list(data.columns))
+            st.write("Missing Values:", data.isnull().sum())
+
+            st.subheader("Descriptive Statistics")
             st.write(data.describe())
+
         except Exception as e:
-            print("it will handle if things go wrong",e)
+            st.error(f"Error loading file: {e}")
     else:
-        pass
+        st.info("Please upload a CSV or Excel file to begin.")
 
 if __name__ == "__main__":
-  main()    
+    main()
